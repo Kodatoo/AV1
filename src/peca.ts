@@ -1,4 +1,7 @@
 import * as readline from "readline";
+import * as path from 'path';
+import * as fs from 'fs';
+
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -23,6 +26,41 @@ export default class Tipo {
     get getFornecedor(): string { return this.fornecedor; }
     get getStatus(): StatusPeca { return this.status; }
 
+    public salvarPeca = (): void =>{
+        const pecas = {
+            nome: this.getNome,
+            tipo: this.getTipo,
+            fornecedor: this.getFornecedor,
+            status: this.getStatus
+        }
+
+        const publicDirPath = path.join(__dirname, '..', 'public')
+        const filePath = path.join(__dirname, '..', 'public', 'pecas.json')
+
+        if (!fs.existsSync(publicDirPath)){
+            fs.mkdirSync(publicDirPath, {recursive: true})
+        }
+
+        try{
+            let pecasdata = []
+
+            if (fs.existsSync(filePath)){
+                const data = fs.readFileSync(filePath, 'utf-8')
+                pecasdata = JSON.parse(data)
+            }
+
+            pecasdata.push(pecas)
+
+            fs.writeFileSync(filePath, JSON.stringify(pecasdata, null, 2), 'utf-8')
+            console.log("Pecas salvas com sucesso")
+            
+        }
+
+        catch(err){
+            console.log(`Erro ao salvar pecas: ${err}`)
+        }
+    }
+
     public atualizarStatus(): void {
         const statusList = Object.values(StatusPeca);
 
@@ -43,6 +81,7 @@ export default class Tipo {
 
             rl.close(); // termina o input
         });
+
     }
 
     

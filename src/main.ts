@@ -11,6 +11,8 @@ let funcionariosteste = new Funcionario("1", "Koda", "1293810302130", "Rua dos c
 
 let testestes = new Teste (TipoTeste.AERODINAMICO, ResultadoTeste.APROVADO)
 
+minhaPeca.salvarPeca();
+
 
 teste.salvar();
 

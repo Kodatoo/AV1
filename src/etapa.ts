@@ -23,6 +23,8 @@ export default class Etapa{
     get getStatus(): StatusEtapa { return this.status }
 
     get getFuncionarios(): Funcionario[] { return this.funcionarios }
+
+    
 }
 
 
