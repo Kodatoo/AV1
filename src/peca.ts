@@ -44,6 +44,8 @@ export default class Tipo {
             rl.close(); // termina o input
         });
     }
+
+    
 }
 
 export enum StatusPeca {

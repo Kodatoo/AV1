@@ -41,12 +41,12 @@ export default class Funcionario {
     public salvar = (): void => {
         const FuncionarioData = {
             id: this.getId,
-            nome: this.nome,
-            telefone: this.telefone,
-            endereco: this.endereco,
-            usuario: this.usuario,
-            senha: this.senha,
-            nivel: this.nivel
+            nome: this.getNome,
+            telefone: this.getTelefone,
+            endereco: this.getEndereco,
+            usuario: this.getUsuario,
+            senha: this.getSenha,
+            nivel: this.getNivel
         }
 
         const publicDirPath = path.join(__dirname, '..', 'public')
