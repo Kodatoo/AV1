@@ -7,6 +7,9 @@ const minhaPeca = new Tipo('Motor X1', TipoPeca.NACIONAL, 'Fornecedor A', Status
 
 minhaPeca.atualizarStatus();
 
+teste.salvar();
+
 console.log('Status inicial:', minhaPeca.getStatus);
 
 console.log(teste.detalhes())
+
