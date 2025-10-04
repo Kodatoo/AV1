@@ -35,6 +35,8 @@ export default class Aeronave {
         )
     }
 
+    
+
 }
 
 export enum TipoAeronave {
