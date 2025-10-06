@@ -16,31 +16,32 @@ export default class Aeronave {
         this.alcance = alcance
     }
 
-    //get 
+    // getters
 
-    get getCodigo(): string { return this.codigo}
+    get getCodigo(): string { return this.codigo }
 
-    get getModelo(): string { return this.modelo}
+    get getModelo(): string { return this.modelo }
 
-    get getTipo(): string { return this.tipo }
+    get getTipo(): TipoAeronave { return this.tipo }
 
-    get getCapacidade(): number { return this.capacidade}
+    get getCapacidade(): number { return this.capacidade }
 
-    get getAlcance(): number { return this.alcance  }
+    get getAlcance(): number { return this.alcance }
 
     public detalhes = (): void => {
         console.log(
             `codigo: ${this.codigo}
-            modelo: ${this.modelo}
-            tipo: ${this.tipo}
-            capacidade: ${this.capacidade}
-            alcance: ${this.alcance}`
+modelo: ${this.modelo}
+tipo: ${this.tipo}
+capacidade: ${this.capacidade}
+alcance: ${this.alcance}`
         )
     }
+
     public salvar = (): void => {
         const aeronaveData = {
             codigo: this.getCodigo,
-            mdoelo: this.getModelo,
+            modelo: this.getModelo,  // Corrigido de "mdoelo" para "modelo"
             tipo: this.getTipo,
             capacidade: this.getCapacidade,
             alcance: this.getAlcance
@@ -58,7 +59,7 @@ export default class Aeronave {
 
             if (fs.existsSync(filePath)) {
                 const data = fs.readFileSync(filePath, 'utf-8')
-                aeronaves = JSON.parse(data) // converte json em array de objetos
+                aeronaves = JSON.parse(data)
             }
 
             aeronaves.push(aeronaveData)
@@ -69,10 +70,19 @@ export default class Aeronave {
         catch (err) {
             console.log(`Erro ao salvar a aeronave: ${err}`);
         }
+    }
 
-    
+    public static carregar = (): any[] => {
+        const filePath = path.join(__dirname, '..', 'public', 'aeronaves.json')
 
-}}
+        if (fs.existsSync(filePath)) {
+            const data = fs.readFileSync(filePath, 'utf-8')
+            const parsedData = JSON.parse(data)
+            return parsedData
+        }
+        return []
+    }
+}
 
 export enum TipoAeronave {
     COMERCIAL = 'COMERCIAL',

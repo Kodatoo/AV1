@@ -70,21 +70,43 @@ export default class Tipo {
         });
 
         rl.question('\nDigite o número correspondente ao novo status: ', (resposta) => {
-            const index = parseInt(resposta); //parse converte a resposta que é string em inteiro
+            const index = parseInt(resposta); 
 
-            if (isNaN(index) || index < 0 || index >= statusList.length) { // isnan verificar se o valor não é numero
+            if (isNaN(index) || index < 0 || index >= statusList.length) { 
                 console.log(' Opção Inválida!');
             } else {
                 this.status = statusList[index] as StatusPeca;
                 console.log(`Status atualizado para: ${this.status}`);
             }
 
-            rl.close(); // termina o input
+            rl.close(); 
         });
 
     }
 
-    
+    /**
+     * Novo método: Carrega todas as peças do arquivo pecas.json.
+     * @returns Um array de objetos, ou um array vazio se o arquivo não existir.
+     */
+    public static carregar = (): any[] => {
+        const filePath = path.join(__dirname, '..', 'public', 'pecas.json')
+
+        if (fs.existsSync(filePath)) {
+            try {
+                const data = fs.readFileSync(filePath, 'utf-8')
+                // Verifica se o arquivo está vazio para evitar erro de JSON.parse
+                if (data) {
+                    const parsedData = JSON.parse(data)
+                    return parsedData
+                }
+            } catch (err) {
+                console.error(`Erro ao ler ou analisar o arquivo pecas.json: ${err}`)
+                return []
+            }
+        }
+        // Retorna um array vazio se o arquivo não existir ou estiver vazio/corrompido
+        return []
+    }
 }
 
 export enum StatusPeca {
